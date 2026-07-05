@@ -95,6 +95,8 @@ function syncFavButtons() {
    ========================================================= */
 const state = { search: '', brand: '', body: '', fuel: '', maxPrice: 500000, sort: 'pop' };
 let showFavOnly = false;
+const COLLAPSED_COUNT = 3;     // сколько авто показываем в свёрнутом виде
+let catalogExpanded = false;   // развёрнут ли весь каталог
 
 function fillFilterOptions() {
   const bSel = $('#fBrand'), bodySel = $('#fBody'), fuelSel = $('#fFuel');
@@ -162,31 +164,34 @@ function getFiltered() {
 function carCard(car) {
   const rub = car.price_cny * DEFAULT_CNY;
   const fuelClass = car.fuel === 'Электро' ? 'fuel-el' : '';
-  const badges = [
-    ...(car.tags || []).slice(0, 1).map(t => `<span class="car-badge">${t}</span>`),
-    `<span class="car-badge ${fuelClass}">${car.fuel}</span>`
-  ].join('');
+  const tag = (car.tags && car.tags[0]) ? `<span class="car-badge car-badge-tag">${car.tags[0]}</span>` : '';
   const specs = [
-    `${car.year} г.`,
+    `${car.year}`,
     car.body,
     `${car.power} л.с.`,
     car.fuel === 'Электро' ? 'Электро' : `${(car.engine_cc/1000).toFixed(1)} л`,
-    car.range_km ? `${fmtInt(car.range_km)} км запас` : car.drive
+    car.range_km ? `${fmtInt(car.range_km)} км` : car.drive
   ].map(s => `<span class="car-spec">${s}</span>`).join('');
   return `
   <article class="car" data-id="${car.id}">
     <div class="car-visual" style="${visualBg(car)}">
       ${carImg(car, 'car-img')}
-      <div class="car-badges">${badges}</div>
+      <div class="car-scrim"></div>
+      <div class="car-badges">${tag}<span class="car-badge ${fuelClass}">${car.fuel}</span></div>
       <button class="car-fav ${favSet.has(car.id) ? 'active' : ''}" data-id="${car.id}" data-fav aria-label="В избранное">♥</button>
+      <div class="car-visual-name">
+        <span class="car-brand">${car.brand}</span>
+        <span class="car-model">${car.model}</span>
+      </div>
     </div>
     <div class="car-body">
-      <span class="car-brand">${car.brand}</span>
-      <span class="car-model">${car.model}</span>
       <div class="car-specs">${specs}</div>
       <div class="car-price">
-        <div class="cny">${fmtInt(car.price_cny)} <small>¥</small></div>
-        <div class="rub">≈ ${fmtRub(rub)} в Китае</div>
+        <div class="car-price-main">
+          <span class="car-price-label">Цена в Китае</span>
+          <span class="cny">${fmtInt(car.price_cny)} <small>¥</small></span>
+        </div>
+        <span class="car-price-rub">≈ ${fmtRub(rub)}</span>
       </div>
       <div class="car-actions">
         <button class="btn btn-primary btn-sm" data-calc="${car.id}">Под ключ →</button>
@@ -199,10 +204,50 @@ function carCard(car) {
 function renderCatalog() {
   const list = getFiltered();
   const grid = $('#carGrid');
-  grid.innerHTML = list.map(carCard).join('');
-  $('#resultCount').textContent = declCars(list.length);
-  $('#emptyState').hidden = list.length !== 0;
+  const total = list.length;
+  const collapsible = total > COLLAPSED_COUNT;
+  const visible = (!collapsible || catalogExpanded) ? list : list.slice(0, COLLAPSED_COUNT);
+  grid.innerHTML = visible.map(carCard).join('');
+  $('#resultCount').textContent = declCars(total);
+  $('#emptyState').hidden = total !== 0;
+
+  // кнопка «Показать ещё»
+  const moreBox = $('#catalogMore');
+  if (collapsible && !catalogExpanded) {
+    const rest = total - COLLAPSED_COUNT;
+    moreBox.hidden = false;
+    $('#showMore').textContent = `Показать ещё ${rest} ${declMachines(rest)}`;
+  } else {
+    moreBox.hidden = true;
+  }
+  updateCollapseFab();
   refreshFacets();
+}
+
+function declMachines(n) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return 'машину';
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return 'машины';
+  return 'машин';
+}
+
+/* плавающая кнопка «Свернуть» — видна, пока развёрнутый каталог в зоне видимости */
+function updateCollapseFab() {
+  const fab = $('#collapseFab');
+  if (!fab) return;
+  if (!catalogExpanded) { fab.classList.remove('show'); return; }
+  const r = $('#carGrid').getBoundingClientRect();
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  const inView = r.top < vh - 80 && r.bottom > 140;
+  fab.classList.toggle('show', inView);
+}
+
+/* свернуть каталог обратно к 3 авто и вернуться к его началу */
+function collapseCatalog() {
+  catalogExpanded = false;
+  renderCatalog();
+  $('#collapseFab').classList.remove('show');
+  $('#catalog').scrollIntoView({ behavior: 'smooth' });
 }
 
 function resetFilters() {
@@ -211,6 +256,7 @@ function resetFilters() {
   $('#fFuel').value = ''; $('#fSort').value = 'pop'; $('#fPrice').value = 500000;
   $('#priceLabel').textContent = 'до 500 000';
   showFavOnly = false; $('#showFavOnly').setAttribute('aria-pressed', 'false');
+  catalogExpanded = false;
   renderCatalog();
 }
 function declCars(n) {
@@ -514,6 +560,11 @@ function init() {
     e.currentTarget.setAttribute('aria-pressed', String(showFavOnly));
     renderCatalog();
   });
+
+  // --- показать ещё / свернуть каталог ---
+  $('#showMore').addEventListener('click', () => { catalogExpanded = true; renderCatalog(); updateCollapseFab(); });
+  $('#collapseFab').addEventListener('click', collapseCatalog);
+  window.addEventListener('scroll', updateCollapseFab, { passive: true });
 
   // --- делегирование кликов по каталогу/модалке ---
   document.addEventListener('click', e => {

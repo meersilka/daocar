@@ -154,6 +154,9 @@
       </div>
 
       <div class="grid" id="carGrid"><!-- карточки рендерятся из app.js --></div>
+      <div class="catalog-more" id="catalogMore" hidden>
+        <button class="btn btn-ghost btn-more" id="showMore">Показать ещё</button>
+      </div>
       <div class="empty-state" id="emptyState" hidden>
         <p>По этим фильтрам ничего не нашлось.</p>
         <button class="btn btn-primary btn-sm" id="emptyReset">Сбросить фильтры</button>
@@ -437,6 +440,9 @@
       <div class="drawer-body" id="favBody"></div>
     </aside>
   </div>
+
+  <!-- ================= ПЛАВАЮЩАЯ «СВЕРНУТЬ» ================= -->
+  <button class="collapse-fab" id="collapseFab" aria-label="Свернуть каталог">Свернуть каталог</button>
 
   <!-- ================= ТОСТ ================= -->
   <div class="toast" id="toast" hidden></div>
