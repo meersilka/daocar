@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAOCAR — авто из Китая под ключ: подбор, растаможка, доставка</title>
+  <meta name="description" content="Привезём автомобиль из Китая под ключ: подбор по каталогу, честный расчёт растаможки, доставка и оформление в РФ. Онлайн-калькулятор стоимости.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a href="#top" class="logo">
+        <span class="logo-mark">道</span>
+        <span class="logo-text">DAOCAR<em>авто из Китая</em></span>
+      </a>
+      <nav class="nav" aria-label="Главное меню">
+        <a href="#catalog">Каталог</a>
+        <a href="#calc">Калькулятор</a>
+        <a href="#steps">Как это работает</a>
+        <a href="#faq">Вопросы</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-fav-toggle" id="favToggle" aria-label="Избранное">
+          <span class="fav-ico">♥</span>
+          <span class="fav-count" id="favCount">0</span>
+        </button>
+        <a href="#lead" class="btn btn-primary btn-sm">Оставить заявку</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <div class="hero-badge">China → Russia · под ключ</div>
+        <h1>Автомобиль из Китая<br><span class="accent">без переплат и рисков</span></h1>
+        <p class="hero-lead">
+          Подбираем машину под ваш бюджет, считаем растаможку до рубля и привозим
+          с полным оформлением в ГИБДД. Вы платите фиксированную сумму — без «сюрпризов» на границе.
+        </p>
+        <div class="hero-cta">
+          <a href="#catalog" class="btn btn-primary">Смотреть каталог</a>
+          <a href="#calc" class="btn btn-ghost">Рассчитать стоимость →</a>
+        </div>
+        <ul class="hero-stats">
+          <li><b data-count="640" data-suffix="+">0</b><span>авто привезли</span></li>
+          <li><b data-count="35" data-suffix=" дн.">0</b><span>средний срок</span></li>
+          <li><b data-count="0" data-prefix="₽">0</b><span>скрытых доплат</span></li>
+        </ul>
+      </div>
+      <aside class="hero-card" aria-label="Быстрый расчёт">
+        <div class="hero-card-top">
+          <span>Пример расчёта</span>
+          <span class="hero-card-tag">под ключ во Владивостоке</span>
+        </div>
+        <div class="hero-car-name">Li Auto L7 Max · 2025</div>
+        <div class="hero-price-row">
+          <div>
+            <span class="muted">Цена в Китае</span>
+            <b>319 000 ¥</b>
+          </div>
+          <div class="arrow">→</div>
+          <div>
+            <span class="muted">Под ключ в РФ</span>
+            <b class="big">≈ 6,41 млн ₽</b>
+          </div>
+        </div>
+        <div class="hero-mini-break">
+          <div><span>Авто</span><i>4 019 400 ₽</i></div>
+          <div><span>Растаможка</span><i>1 949 000 ₽</i></div>
+          <div><span>Доставка + оформление</span><i>240 000 ₽</i></div>
+          <div><span>Наши услуги</span><i>200 000 ₽</i></div>
+        </div>
+        <a href="#calc" class="btn btn-primary btn-block">Посчитать свою машину</a>
+        <p class="hero-card-note">* предварительный расчёт, курс ¥ 12,6</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= ЛОГОТИПЫ / ДОВЕРИЕ ================= -->
+  <section class="marquee-sec">
+    <div class="wrap">
+      <p class="trust-caption">Работаем с проверенными марками китайского рынка</p>
+      <div class="brand-strip">
+        <span>Li Auto</span><span>Zeekr</span><span>BYD</span><span>Tank</span>
+        <span>Xiaomi</span><span>Aito</span><span>Voyah</span><span>Exeed</span>
+        <span>Geely</span><span>Hongqi</span><span>Avatr</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= КАТАЛОГ ================= -->
+  <section class="section" id="catalog">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Каталог</span>
+          <h2>Подберите авто под свой бюджет</h2>
+        </div>
+        <p class="section-sub">Актуальные модели с внутреннего рынка КНР. Нажмите «Под ключ», чтобы сразу увидеть цену в рублях.</p>
+      </div>
+
+      <!-- Панель фильтров -->
+      <div class="filters" id="filters">
+        <div class="filter-row">
+          <label class="field search-field">
+            <span>Поиск</span>
+            <input type="search" id="fSearch" placeholder="Марка или модель…" autocomplete="off">
+          </label>
+          <label class="field">
+            <span>Марка</span>
+            <select id="fBrand"><option value="">Все марки</option></select>
+          </label>
+          <label class="field">
+            <span>Кузов</span>
+            <select id="fBody"><option value="">Любой</option></select>
+          </label>
+          <label class="field">
+            <span>Двигатель</span>
+            <select id="fFuel"><option value="">Любой</option></select>
+          </label>
+          <label class="field">
+            <span>Сортировка</span>
+            <select id="fSort">
+              <option value="pop">Популярные</option>
+              <option value="price-asc">Дешевле</option>
+              <option value="price-desc">Дороже</option>
+              <option value="power-desc">Мощнее</option>
+              <option value="year-desc">Новее</option>
+            </select>
+          </label>
+        </div>
+        <div class="filter-row price-row">
+          <div class="range-field">
+            <span>Цена в Китае, ¥: <b id="priceLabel">до 500 000</b></span>
+            <input type="range" id="fPrice" min="100000" max="500000" step="5000" value="500000">
+          </div>
+          <button class="btn btn-ghost btn-sm" id="resetFilters">Сбросить фильтры</button>
+        </div>
+      </div>
+
+      <div class="catalog-meta">
+        <span id="resultCount">0 авто</span>
+        <button class="chip chip-fav" id="showFavOnly" aria-pressed="false">♥ Только избранное</button>
+      </div>
+
+      <div class="grid" id="carGrid"><!-- карточки рендерятся из app.js --></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <p>По этим фильтрам ничего не нашлось.</p>
+        <button class="btn btn-primary btn-sm" id="emptyReset">Сбросить фильтры</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= КАЛЬКУЛЯТОР ================= -->
+  <section class="section section-alt" id="calc">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Калькулятор</span>
+          <h2>Растаможка и цена под ключ</h2>
+        </div>
+        <p class="section-sub">Прозрачный расчёт для физлица: таможенная пошлина, утильсбор, оформление и доставка. Меняйте параметры — сумма пересчитается сразу.</p>
+      </div>
+
+      <div class="calc">
+        <form class="calc-form" id="calcForm">
+          <label class="field">
+            <span>Модель из каталога <em>(подставит реальную цену и характеристики)</em></span>
+            <select id="cModel"><option value="">— задать вручную —</option></select>
+          </label>
+
+          <div class="calc-car-pick" id="calcCarPick" hidden>
+            <span>Считаем: <b id="calcCarName"></b></span>
+            <button type="button" class="link-clear" id="calcClearCar">сбросить</button>
+          </div>
+
+          <label class="field">
+            <span>Цена авто в Китае, ¥</span>
+            <input type="number" id="cPrice" value="199000" min="0" step="1000" inputmode="numeric">
+            <small class="hint" id="priceHint">Средняя цена на внутреннем рынке КНР</small>
+          </label>
+
+          <div class="two-col">
+            <label class="field">
+              <span>Тип двигателя</span>
+              <select id="cFuel">
+                <option value="Бензин">Бензин</option>
+                <option value="Гибрид">Гибрид</option>
+                <option value="Электро">Электро</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Объём двигателя, л</span>
+              <input type="number" id="cEngine" value="2.0" min="0" max="8" step="0.1" inputmode="decimal">
+              <small class="hint" id="engineHint">Рабочий объём в литрах</small>
+            </label>
+          </div>
+
+          <div class="two-col">
+            <label class="field">
+              <span>Год выпуска</span>
+              <select id="cYear"></select>
+            </label>
+            <label class="field">
+              <span>Доставка до региона</span>
+              <select id="cDelivery">
+                <option value="180000">Владивосток — 180 000 ₽</option>
+                <option value="245000">Урал / Сибирь — 245 000 ₽</option>
+                <option value="290000">Москва / Центр — 290 000 ₽</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="two-col">
+            <label class="field">
+              <span>Курс юаня, ₽</span>
+              <input type="number" id="cCny" value="12.6" min="1" step="0.1" inputmode="decimal">
+            </label>
+            <label class="field">
+              <span>Курс евро, ₽</span>
+              <input type="number" id="cEur" value="100" min="1" step="0.5" inputmode="decimal">
+            </label>
+          </div>
+        </form>
+
+        <div class="calc-result" id="calcResult" aria-live="polite">
+          <div class="calc-total">
+            <span>Итого под ключ</span>
+            <b id="rTotal">—</b>
+            <small id="rSub">курс и параметры можно менять слева</small>
+          </div>
+          <ul class="calc-break" id="calcBreak"></ul>
+          <div class="calc-actions">
+            <a href="#lead" class="btn btn-primary btn-block" id="calcToLead">Заказать этот расчёт</a>
+          </div>
+          <p class="calc-disclaimer">
+            Расчёт предварительный и не является публичной офертой. Точную сумму фиксируем в договоре
+            после проверки VIN и актуального курса ЦБ. Ставки — для ввоза физлицом для личного пользования.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ЭТАПЫ ================= -->
+  <section class="section" id="steps">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Процесс</span>
+          <h2>Пять шагов до вашей машины</h2>
+        </div>
+        <p class="section-sub">Вы согласуете авто и вносите предоплату — остальное берём на себя.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-num">01</span>
+          <h3>Подбор и проверка</h3>
+          <p>Выбираем авто под бюджет, проверяем историю и комплектацию, показываем фото и видео с площадки в Китае.</p>
+        </li>
+        <li>
+          <span class="step-num">02</span>
+          <h3>Договор и выкуп</h3>
+          <p>Фиксируем цену под ключ в договоре, выкупаем авто у дилера. Все платежи — на официальный счёт.</p>
+        </li>
+        <li>
+          <span class="step-num">03</span>
+          <h3>Доставка в РФ</h3>
+          <p>Логистика до границы и растаможка. Вы видите статус на каждом этапе в личном чате.</p>
+        </li>
+        <li>
+          <span class="step-num">04</span>
+          <h3>Оформление</h3>
+          <p>СБКТС, ЭРА-ГЛОНАСС, ЭПТС и постановка на учёт в ГИБДД — готовим полный пакет документов.</p>
+        </li>
+        <li>
+          <span class="step-num">05</span>
+          <h3>Передача</h3>
+          <p>Отдаём машину с номерами и документами. Средний срок — 35 дней от предоплаты до ключей.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= ПРЕИМУЩЕСТВА ================= -->
+  <section class="section section-alt" id="why">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Гарантии</span>
+          <h2>Почему с нами безопасно</h2>
+        </div>
+      </div>
+      <div class="perks">
+        <div class="perk"><span class="perk-ico">₽</span><h3>Фиксированная цена</h3><p>Сумма под ключ прописана в договоре и не меняется от курса на границе.</p></div>
+        <div class="perk"><span class="perk-ico">✓</span><h3>Юридическая чистота</h3><p>Официальный выкуп, все документы и чеки. Никаких «серых» схем ввоза.</p></div>
+        <div class="perk"><span class="perk-ico">◎</span><h3>Проверка до покупки</h3><p>Диагностика и толщиномер до оплаты. Отчёт по состоянию кузова и пробегу.</p></div>
+        <div class="perk"><span class="perk-ico">◷</span><h3>Сроки в договоре</h3><p>Прописываем дату передачи. За просрочку по нашей вине — компенсация.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section" id="faq">
+    <div class="wrap narrow">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Вопросы</span>
+          <h2>Коротко о главном</h2>
+        </div>
+      </div>
+      <div class="faq" id="faqList">
+        <details class="faq-item">
+          <summary>Из-за чего складывается итоговая цена?</summary>
+          <p>Стоимость авто в Китае + таможенная пошлина + утилизационный сбор + таможенный сбор за оформление + СБКТС и ЭРА-ГЛОНАСС + доставка + наши услуги. Всё это видно в калькуляторе построчно.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Почему растаможка электромобиля дешевле?</summary>
+          <p>Для электромобилей действует ставка 15% от таможенной стоимости независимо от объёма двигателя, тогда как для бензиновых и гибридных пошлина считается по объёму и возрасту авто.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Какие авто выгоднее всего возить?</summary>
+          <p>Оптимальны машины 1–3 лет с объёмом до 2,0 л и электромобили — по ним таможенные платежи ниже. Мы подскажем конкретные модели под ваш бюджет.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Сколько занимает весь процесс?</summary>
+          <p>В среднем 35 дней от предоплаты до выдачи с документами. Срок зависит от региона доставки и загрузки таможни.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Нужно ли ехать в Китай?</summary>
+          <p>Нет. Всё оформляем дистанционно: договор, оплату, отчёты по авто и статусы доставки вы получаете онлайн.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ФОРМА ЗАЯВКИ ================= -->
+  <section class="section section-lead" id="lead">
+    <div class="wrap narrow">
+      <div class="lead-box">
+        <div class="lead-copy">
+          <span class="eyebrow">Заявка</span>
+          <h2>Рассчитаем вашу машину бесплатно</h2>
+          <p>Оставьте контакты — вернёмся в течение рабочего дня с точным расчётом под ключ и 2–3 вариантами авто под бюджет.</p>
+          <ul class="lead-benefits">
+            <li>Подбор под бюджет за 1 день</li>
+            <li>Честный расчёт без скрытых доплат</li>
+            <li>Ответим в мессенджере — как удобно</li>
+          </ul>
+        </div>
+        <form class="lead-form" id="leadForm" novalidate>
+          <label class="field">
+            <span>Как вас зовут</span>
+            <input type="text" name="name" id="lName" required placeholder="Имя">
+            <small class="err" data-for="lName"></small>
+          </label>
+          <label class="field">
+            <span>Телефон</span>
+            <input type="tel" name="phone" id="lPhone" required placeholder="+7 (___) ___-__-__" inputmode="tel">
+            <small class="err" data-for="lPhone"></small>
+          </label>
+          <label class="field">
+            <span>Бюджет / пожелания <em>(необязательно)</em></span>
+            <textarea name="wish" id="lWish" rows="3" placeholder="Например: кроссовер до 4 млн ₽, гибрид, полный привод"></textarea>
+          </label>
+          <input type="hidden" name="car" id="lCar">
+          <button type="submit" class="btn btn-primary btn-block">Отправить заявку</button>
+          <label class="consent">
+            <input type="checkbox" id="lConsent" checked>
+            <span>Соглашаюсь на обработку персональных данных согласно 152-ФЗ</span>
+          </label>
+          <p class="form-success" id="formSuccess" hidden>Готово! Заявка принята — свяжемся с вами в ближайшее время.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ФУТЕР ================= -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="logo-mark">道</span>
+        <div>
+          <b>DAOCAR</b>
+          <p>Автомобили из Китая под ключ. Подбор · растаможка · доставка · учёт.</p>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4>Разделы</h4>
+          <a href="#catalog">Каталог</a>
+          <a href="#calc">Калькулятор</a>
+          <a href="#steps">Как это работает</a>
+          <a href="#faq">Вопросы</a>
+        </div>
+        <div>
+          <h4>Контакты</h4>
+          <a href="tel:+79000000000">+7 (900) 000-00-00</a>
+          <a href="#lead">Оставить заявку</a>
+          <a href="#top">Наверх ↑</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>© 2026 DAOCAR — демо-проект. Цены и расчёты ориентировочные.</span>
+      <span>Сделано в стиле «под ключ»</span>
+    </div>
+  </footer>
+
+  <!-- ================= МОДАЛКА АВТО ================= -->
+  <div class="modal" id="carModal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+      <button class="modal-close" data-close aria-label="Закрыть">×</button>
+      <div class="modal-body" id="modalBody"><!-- заполняется из app.js --></div>
+    </div>
+  </div>
+
+  <!-- ================= ИЗБРАННОЕ (drawer) ================= -->
+  <div class="drawer" id="favDrawer" hidden>
+    <div class="modal-backdrop" data-close-fav></div>
+    <aside class="drawer-panel" role="dialog" aria-label="Избранное">
+      <div class="drawer-head">
+        <h3>Избранное</h3>
+        <button class="modal-close" data-close-fav aria-label="Закрыть">×</button>
+      </div>
+      <div class="drawer-body" id="favBody"></div>
+    </aside>
+  </div>
+
+  <!-- ================= ТОСТ ================= -->
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
